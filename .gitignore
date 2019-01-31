@@ -51,6 +51,7 @@ ehthumbs_vista.db
 *.stackdump
 [Dd]esktop.ini
 *.lnk
+*.exe
 
 ## MacOS
 .DS_Store
