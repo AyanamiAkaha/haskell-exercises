@@ -3,15 +3,9 @@ module RPN (
   RPN (..),
   ) where
 
-data Token a = Number a | Operator a | BadInput
-  deriving (Eq, Ord)
+import Token
 
-instance (Show a) => Show (Token a) where
-  show (Number a) = show a
-  show (Operator a) = show a
-  show BadInput = "Bad Input"
-
-data RPN a = RPN [Token a] deriving (Ord, Eq, Show)
+data RPN a = RPN [Token] deriving (Eq, Show)
 
 instance Functor RPN where
   fmap _ _ = RPN [BadInput]
