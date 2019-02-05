@@ -3,18 +3,18 @@ import Token
 import RPN
 
 tests = TestList [
-  tokenCanBeRead
+  tokenCanBeParsed
 --          returnsRPNFromValue
 --          performsCalculation
                  ]
 
-tokenCanBeRead = TestList [
-  (read "1" :: Token) ~?= Num 1,
-  (read "add" :: Token) ~?= Op Add,
-  (read "sub" :: Token) ~?= Op Sub,
-  (read "mul" :: Token) ~?= Op Mul,
-  (read "div" :: Token) ~?= Op Div,
-  (read "asdf" :: Token) ~?= BadInput
+tokenCanBeParsed = TestList [
+  (parse "1" :: Token) ~?= Num 1,
+  (parse "add" :: Token) ~?= Op Add,
+  (parse "sub" :: Token) ~?= Op Sub,
+  (parse "mul" :: Token) ~?= Op Mul,
+  (parse "div" :: Token) ~?= Op Div,
+  (parse "asdf" :: Token) ~?= BadInput
                           ]
   
 
