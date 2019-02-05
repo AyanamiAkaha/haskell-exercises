@@ -5,7 +5,7 @@ module RPN (
 
 import Token
 
-data RPN a = RPN [Token] deriving (Eq, Show)
+data RPN a = RPN [Token a] deriving (Eq, Show)
 
 instance Functor RPN where
   fmap _ _ = RPN [BadInput]
