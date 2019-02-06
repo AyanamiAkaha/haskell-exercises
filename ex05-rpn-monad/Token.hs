@@ -22,10 +22,10 @@ instance (Show a) => Show (Token a) where
   show BadInput = "Bad Input"
 
 tparse :: String -> Token Float
-tparse "add" = Op Add
-tparse "sub" = Op Sub
-tparse "mul" = Op Mul
-tparse "div" = Op Div
+tparse "+" = Op Add
+tparse "-" = Op Sub
+tparse "*" = Op Mul
+tparse "/" = Op Div
 tparse a = extract v
    where
      v = (readMaybe a :: Maybe Float)

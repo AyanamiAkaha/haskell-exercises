@@ -3,20 +3,30 @@ import Token
 import RPN
 
 tests = TestList [
-  tokenCanBeParsed
+  tokenCanBeParsed,
+  stringCanBeParsedIntoCalc
 --          returnsRPNFromValue
 --          performsCalculation
                  ]
 
 tokenCanBeParsed = TestList [
   (tparse "1") ~?= tnum 1,
-  (tparse "add") ~?= Op Add,
-  (tparse "sub") ~?= Op Sub,
-  (tparse "mul") ~?= Op Mul,
-  (tparse "div") ~?= Op Div,
+  (tparse "+") ~?= Op Add,
+  (tparse "-") ~?= Op Sub,
+  (tparse "*") ~?= Op Mul,
+  (tparse "/") ~?= Op Div,
   (tparse "asdf") ~?= BadInput
                             ]
   
+stringCanBeParsedIntoCalc = TestList [
+  (rpn "1") ~?= RPN [tnum 1],
+  (rpn "+") ~?= RPN [Op Add],
+  (rpn "-") ~?= RPN [Op Sub],
+  (rpn "*") ~?= RPN [Op Mul],
+  (rpn "/") ~?= RPN [Op Div],
+  (rpn "1 2") ~?= RPN [tnum 1, tnum 2],
+  (rpn "x") ~?= RPN [BadInput]
+                                     ]
 
 -- performsCalculation = TestCase (return 1 >>= push 1 >>= push add) ~?= return 3
 
