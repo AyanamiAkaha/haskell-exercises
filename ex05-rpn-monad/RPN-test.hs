@@ -4,8 +4,9 @@ import RPN
 
 tests = TestList [
   tokenCanBeParsed,
-  stringCanBeParsedIntoCalc
---          returnsRPNFromValue
+  stringCanBeParsedIntoCalc,
+  returnsRPNFromValue
+--  calculatesValueWhileParsing 
 --          performsCalculation
                  ]
 
@@ -28,10 +29,21 @@ stringCanBeParsedIntoCalc = TestList [
   (rpn "x") ~?= RPN [BadInput]
                                      ]
 
--- performsCalculation = TestCase (return 1 >>= push 1 >>= push add) ~?= return 3
 
--- returnsRPNFromValue = (
---   (return 1 :: RPN Int) ~?= RPN [Number 1]
---                       )
+returnsRPNFromValue = (
+  (return 1 :: RPN Int) ~?= RPN [tnum 1]
+                      )
+
+-- calculatesValueWhileParsing = TestList [
+--   (rpn "1 2 +") ~?= RPN [tnum 3],
+--   (rpn "1 2 -") ~?= RPN [tnum (-1)],
+--   (rpn "1 2 *") ~?= RPN [tnum 2],
+--   (rpn "1 2 /") ~?= RPN [tnum 0.5],
+--   (rpn "1 2 3 * +") ~?= RPN [tnum 7],
+--   (rpn "1 2 3 +") ~?= RPN [tnum 1, tnum 5],
+--   (rpn "2 2 * +") ~?= RPN [tnum 4, Op Add]
+--                                        ]
+
+-- performsCalculation = TestCase (return 1 >>= push 1 >>= push add) ~?= return 3
 
 main = runTestTT tests
