@@ -20,7 +20,7 @@ addsRootParentToNonRootTask =
   addParent childCA3 (rootB1, 2) ~?=
     PriorityGraph ("C", [(rootB1, 2), (rootA5, 3)])
 
-addParentWorksOnRootTaskDiscartingOriginalPriority =
+addParentWorksOnRootTaskDiscardingOriginalPriority =
   addParent rootA5 (rootB1, 7) ~?=
     PriorityGraph ("A", [(rootB1, 7)])
 
