@@ -10,7 +10,15 @@ type Parent a = (PriorityGraph a, Priority)
 data PriorityGraph a = PriorityGraph (a, [Parent a]) | Root (a, Priority)
   deriving (Eq, Show)
 
--- TODO: switch to sets
+mapParent' f (a, p) = (fmap f a, p)
+
+mapParent f [] = []
+mapParent f xs = map (mapParent' f) xs
+
+instance Functor PriorityGraph where
+  fmap f (Root (t, p)) = Root (f t, p)
+  fmap f (PriorityGraph (t, pp)) = PriorityGraph (f t, mapParent f pp)
+
 -- TODO: prevent cycles
 -- TODO: possibly make it a monad
 
