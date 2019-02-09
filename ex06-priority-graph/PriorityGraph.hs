@@ -2,7 +2,9 @@ module PriorityGraph (
   PriorityGraph (..),
   setParent,
   addParent,
-  priority
+  priority,
+  mapParent,
+  mapParent'
   ) where
 
 type Priority = Double
@@ -10,7 +12,8 @@ type Parent a = (PriorityGraph a, Priority)
 data PriorityGraph a = PriorityGraph (a, [Parent a]) | Root (a, Priority)
   deriving (Eq, Show)
 
-mapParent' f (a, p) = (fmap f a, p)
+mapParent' f (Root (a, pr), p) = (Root ((f a), pr), p)
+mapParent' f (g, p) = (fmap f g, p)
 
 mapParent f [] = []
 mapParent f xs = map (mapParent' f) xs
@@ -18,6 +21,10 @@ mapParent f xs = map (mapParent' f) xs
 instance Functor PriorityGraph where
   fmap f (Root (t, p)) = Root (f t, p)
   fmap f (PriorityGraph (t, pp)) = PriorityGraph (f t, mapParent f pp)
+
+instance Applicative PriorityGraph where
+  pure a = Root (a, 1)
+  -- Root (f t1, p1) <*> Root (f t2, p2) = 
 
 -- TODO: prevent cycles
 -- TODO: possibly make it a monad
