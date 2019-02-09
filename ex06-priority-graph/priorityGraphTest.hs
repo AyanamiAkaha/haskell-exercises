@@ -1,4 +1,5 @@
 import Test.HUnit
+import Data.List
 import PriorityGraph
 
 tests = TestList [
@@ -10,7 +11,8 @@ tests = TestList [
   mapsOverRoot,
   mapsOverTaskWithSingleParent,
   mapsOverTasksWithMultipleParents,
-  mapsOverNestedParenting
+  mapsOverNestedParenting,
+  getsTaskListFromTree
                  ]
 
 
@@ -55,5 +57,8 @@ mapsOverTasksWithMultipleParents =
 mapsOverNestedParenting =
   fmap (" "++) childDC7B1 ~?=
     PriorityGraph (" D", [(PriorityGraph (" C", [(Root (" A", 5), 3)]), 7), (Root (" B", 1), 1)])
+
+getsTaskListFromTree =
+  getTasks childDC7B1 \\ ["D", "C", "B", "A"] ~?= []
 
 main = runTestTT tests
